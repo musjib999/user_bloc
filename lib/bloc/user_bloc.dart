@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:user_bloc/core/service_injector.dart';
+import 'package:user_bloc/data/user_data.dart';
 import 'package:user_bloc/model/user_model.dart';
 
 part 'user_event.dart';
@@ -18,6 +19,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         UserModel user =
             await si.userService.getSingleUser(event.user.id) as UserModel;
         emit.call(SingleUserLoaded(user: user));
+      } else if (event is AddFavouriteUser) {
+        favouriteUsers.add(event.user);
+        emit.call(FavouriteUserAdded(favouriteUsers));
+      } else if (event is RemoveFavouriteUser) {
+        favouriteUsers.remove(event.user);
+        emit.call(FavouriteUserRemoved(favouriteUsers));
       }
     });
   }

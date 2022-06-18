@@ -24,3 +24,19 @@ class SingleUserLoaded extends UserState {
   @override
   List<Object> get props => [user];
 }
+
+class FavouriteUserAdded extends UserState {
+  final List<UserModel> users;
+  FavouriteUserAdded(this.users);
+
+  @override
+  List<Object> get props => [users];
+}
+
+class FavouriteUserRemoved extends UserState {
+  final List<UserModel> users;
+  FavouriteUserRemoved(this.users);
+
+  @override
+  List<Object> get props => [users];
+}

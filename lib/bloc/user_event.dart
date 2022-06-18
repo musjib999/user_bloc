@@ -16,3 +16,19 @@ class GetSingleUser extends UserEvent {
   @override
   List<Object> get props => [];
 }
+
+class AddFavouriteUser extends UserEvent {
+  final UserModel user;
+  const AddFavouriteUser(this.user);
+
+  @override
+  List<Object> get props => [user];
+}
+
+class RemoveFavouriteUser extends UserEvent {
+  final UserModel user;
+  const RemoveFavouriteUser(this.user);
+
+  @override
+  List<Object> get props => [user];
+}
