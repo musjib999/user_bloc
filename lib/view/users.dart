@@ -40,14 +40,15 @@ class _UsersScreenState extends State<UsersScreen> {
         child: BlocBuilder<UserBloc, UserState>(
           bloc: userBloc,
           builder: (context, state) {
-            if (state is UserInitial) {
+            if (state.status == UserStatus.initial) {
               return const InitalUsers();
-            } else if (state is UserLoading) {
+            } else if (state.status == UserStatus.failure) {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: Text('Failed To Fetch All Users'),
               );
-            } else if (state is AllUserLoaded) {
-              List<UserModel> users = state.users;
+            } else {
+              final userStateAsUserLoaded = state;
+              List<UserModel> users = userStateAsUserLoaded.users;
               return ListView.separated(
                 itemCount: users.length,
                 separatorBuilder: (context, index) => const Divider(),
@@ -87,6 +88,12 @@ class _UsersScreenState extends State<UsersScreen> {
                           BlocProvider.of<UserBloc>(context).add(
                             RemoveFavouriteUser(users[index]),
                           );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  '${state.users[index].name} has been removed'),
+                            ),
+                          );
                         }
                       },
                       icon: const Icon(Icons.favorite_border),
@@ -95,7 +102,6 @@ class _UsersScreenState extends State<UsersScreen> {
                 }),
               );
             }
-            return Container();
           },
         ),
       ),
