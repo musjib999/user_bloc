@@ -1,42 +1,61 @@
 part of 'user_bloc.dart';
 
-abstract class UserState extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+enum UserStatus { initial, loading, success, failure }
 
-class UserInitial extends UserState {}
-
-class UserLoading extends UserState {}
-
-class AllUserLoaded extends UserState {
+class UserState extends Equatable {
+  const UserState({
+    this.status = UserStatus.initial,
+    required this.users,
+  });
+  final UserStatus status;
   final List<UserModel> users;
-  AllUserLoaded({required this.users});
+
+  UserState copyWith({
+    UserStatus? status,
+    List<UserModel>? users,
+  }) {
+    return UserState(
+      status: status ?? this.status,
+      users: this.users,
+    );
+  }
 
   @override
-  List<Object> get props => [users];
+  List<Object> get props => [status];
 }
 
-class SingleUserLoaded extends UserState {
-  final UserModel user;
-  SingleUserLoaded({required this.user});
+// class UserInitial extends UserState {}
 
-  @override
-  List<Object> get props => [user];
-}
+// class UserLoading extends UserState {}
 
-class FavouriteUserAdded extends UserState {
-  final List<UserModel> users;
-  FavouriteUserAdded(this.users);
+// class AllUserLoaded extends UserState {
+//   final List<UserModel> users;
+//   const AllUserLoaded({required this.users});
 
-  @override
-  List<Object> get props => [users];
-}
+//   @override
+//   List<Object> get props => [users];
+// }
 
-class FavouriteUserRemoved extends UserState {
-  final List<UserModel> users;
-  FavouriteUserRemoved(this.users);
+// class SingleUserLoaded extends UserState {
+//   final UserModel user;
+//   const SingleUserLoaded({required this.user});
 
-  @override
-  List<Object> get props => [users];
-}
+//   @override
+//   List<Object> get props => [user];
+// }
+
+// class FavouriteUserAdded extends UserState {
+//   final List<UserModel> users;
+//   const FavouriteUserAdded(this.users);
+
+//   @override
+//   List<Object> get props => [users];
+// }
+
+// class FavouriteUserRemoved extends UserState {
+//   final List<UserModel> users;
+//   const FavouriteUserRemoved(this.users);
+
+//   @override
+//   List<Object> get props => [users];
+// }

@@ -13,31 +13,32 @@ class _InitalUsersState extends State<InitalUsers> {
   @override
   void initState() {
     super.initState();
-    // final userBloc = BlocProvider.of<UserBloc>(context);
-    // userBloc.add(GetUsers());
+    final userBloc = BlocProvider.of<UserBloc>(context);
+    userBloc.add(GetUsers());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('Initial State'),
-          const SizedBox(height: 12),
-          MaterialButton(
-            onPressed: () {
-              final userBloc = BlocProvider.of<UserBloc>(context);
-              userBloc.add(GetUsers());
-            },
-            color: Colors.blue,
-            child: const Text(
-              'Get Users',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
-      ),
+    return const Center(
+      // child: Column(
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   children: [
+      //     const Text('Initial State'),
+      //     const SizedBox(height: 12),
+      //     MaterialButton(
+      //       onPressed: () {
+      //         final userBloc = BlocProvider.of<UserBloc>(context);
+      //         userBloc.add(GetUsers());
+      //       },
+      //       color: Colors.blue,
+      //       child: const Text(
+      //         'Get Users',
+      //         style: TextStyle(color: Colors.white),
+      //       ),
+      //     ),
+      //   ],
+      // ),
+      child: CircularProgressIndicator(),
     );
   }
 }
